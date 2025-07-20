@@ -1,0 +1,65 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add altering commands here.
+     *
+     * Example:
+     * await queryInterface.createTable('showtimes', { id: Sequelize.INTEGER });
+    */
+    await queryInterface.createTable('showtimes', {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: Sequelize.INTEGER
+      },
+      movie_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "movies",
+          key: "id",
+        },
+        onDelete: "CASCADE",
+      },
+      theater_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "theaters",
+          key: "id",
+        },
+        onDelete: "CASCADE",  
+      },
+      show_date: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      show_time: {
+        allowNull: false,
+        type: Sequelize.TIME
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('showtimes');
+    */
+    await queryInterface.dropTable('showtimes');
+  }
+};
