@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("user", attributes, options);
   User.associate = function (models) {
     User.hasOne(models.profile, {foreignKey: "user_id"});
+    User.hasMany(models.session, {foreignKey: "user_id"});
   };
   return User;
 };
