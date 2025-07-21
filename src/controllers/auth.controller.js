@@ -1,6 +1,6 @@
 const { constants: http } = require('http2');
 const { user, session } = require('../models');
-const { generateToken, getDeviceInfo } = require('../utils/auth');
+const { generateToken, getDeviceInfo, generateOTP } = require('../utils/auth');
 const bcrypt = require('bcrypt');
 
 exports.register = async function (req, res){
@@ -121,3 +121,49 @@ exports.login = async function (req, res) {
     });
   }
 };
+
+exports.forgotPassword = async function(req, res) {
+  try {
+    const {email} = req.body
+    const users = await user.findOne({
+      where: {email: email}
+    })
+
+    if (!email) {
+      return res
+        .status(http.HTTP_STATUS_BAD_REQUEST)
+        .json({
+          success: false, 
+          message: "Email is required"
+        });
+    }
+
+    if (users === null) {
+      return res
+        .status(http.HTTP_STATUS_NOT_FOUND)
+        .json({
+          success: false, 
+          message: "Email not registered"
+        });
+    }
+    
+    const otp = generateOTP();
+    
+    return res
+      .status(http.HTTP_STATUS_OK)
+      .json({
+        success: true, 
+        message: "OTP has been sent to email.",
+        data: {
+          otp: otp
+        }
+      });
+
+
+  } catch (error) {
+    return res.status(http.HTTP_STATUS_INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: error.message
+    });
+  }
+}

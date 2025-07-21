@@ -43,11 +43,16 @@ function getDeviceInfo() {
   return deviceInfo;
 }
 
-console.log(getDeviceInfo())
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
+console.log(generateOTP())
 
 module.exports = {
   generateToken,
   verifyToken,
-  getDeviceInfo
+  getDeviceInfo,
+  generateOTP
 }
 
