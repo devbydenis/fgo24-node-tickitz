@@ -1,12 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
     id: {
-      allowNull: false,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: true,
       primaryKey: true,
-      type: DataTypes.INTEGER,
     },
     user_id: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.UUID,
       references: {
         model: "users",
@@ -15,39 +16,39 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "SET NULL",
     },
     firstname: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
     lastname: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
     birthday: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
     },
     gender: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.ENUM("male", "female"),
     },
     profile_picture: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
     phone_number: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
     is_verified: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.BOOLEAN,
     },
     createdAt: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
     },
     updatedAt: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
     },
   };

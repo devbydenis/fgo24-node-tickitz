@@ -11,12 +11,13 @@ module.exports = {
      */
     await queryInterface.createTable('profiles', {
       id: {
-        allowNull: false,
+        allowNull: false, // harusnya allow aja null ini atau lebih baik dikasih default truee
         primaryKey: true,
-        type: Sequelize.INTEGER
+        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.UUID
       },
       user_id: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.UUID,
         references: {
           model: 'users',
@@ -25,31 +26,31 @@ module.exports = {
         onDelete: 'SET NULL'
       },
       firstname: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       lastname: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       birthday: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE 
       },
       gender: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.ENUM('male', 'female')
       },
       profile_picture: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       phone_number: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       is_verified: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.BOOLEAN
       },
       createdAt: {

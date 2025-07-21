@@ -1,8 +1,9 @@
 const {constants: http} = require("http2");
 const bcrypt = require("bcrypt");
-const {user, session} = require("../models");
+const {user, session, profile} = require("../models");
 const {generateToken, getDeviceInfo, generateOTP, sendResetEmail} = require("../utils/auth");
 const { setAsync, getAsync, delAsync } = require("../db/redis");
+const { where } = require("sequelize");
 
 
 exports.register = async function (req, res) {
@@ -40,6 +41,14 @@ exports.register = async function (req, res) {
       email: email,
       password: hashedPassword,
       role: "user",
+    });
+
+    const foundUser = await user.findOne({
+      where:{email: email}
+    });
+    await profile.create({
+      user_id: foundUser.id,
+      firstname: foundUser.email.split("@")[0],
     });
 
     return res.status(http.HTTP_STATUS_OK).json({
