@@ -13,7 +13,8 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+        // defaultValue: Sequelize.UUIDV4 // lupa kasih default value
       },
       email: {
         allowNull: false,
