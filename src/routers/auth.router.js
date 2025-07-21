@@ -5,6 +5,6 @@ const rateLimiter = require('../middleware/ratelimiter') // limit request forgot
 authRouter.post('/register', authController.register)
 authRouter.post('/login', authController.login)
 authRouter.post('/forgot-password', rateLimiter, authController.forgotPassword)
-authRouter.post('/reset-password', authController.resetPassword)
+authRouter.patch('/reset-password', authController.resetPassword)
 
 module.exports = authRouter

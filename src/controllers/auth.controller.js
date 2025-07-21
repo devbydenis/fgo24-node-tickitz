@@ -192,6 +192,7 @@ exports.resetPassword = async function (req, res) {
       });
     }
 
+    // update password berdasarkan email
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await user.update(
       {
